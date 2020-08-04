@@ -3,19 +3,20 @@
 import turtle
 import math
 
-class SolarSystem:
 
+class SolarSystem:
     def __init__(self, height, width):
         self.sun = None
         self.planets = []
         self.window = turtle.Screen()
         self.window.tracer(0)
         self.window.setup(900, 900)
-        self.window.bgcolor('black')
+        self.window.bgcolor("black")
         self.sst = turtle.Turtle()
         self.sst.hideturtle()
-        self.window.setworldcoordinates(-width/2.0, -height/2.0,
-                                      width/2.0, height/2.0)
+        self.window.setworldcoordinates(
+            -width / 2.0, -height / 2.0, width / 2.0, height / 2.0
+        )
 
     def add_planet(self, planet):
         self.planets.append(planet)
@@ -39,10 +40,10 @@ class SolarSystem:
 
             rx = self.sun.x - p.x
             ry = self.sun.y - p.y
-            r = math.sqrt(rx**2 + ry**2)
+            r = math.sqrt(rx ** 2 + ry ** 2)
 
-            x_accel = G * self.sun.mass * rx / r**3
-            y_accel = G * self.sun.mass * ry / r**3
+            x_accel = G * self.sun.mass * rx / r ** 3
+            y_accel = G * self.sun.mass * ry / r ** 3
 
             p.x_vel += dt * x_accel
             p.y_vel += dt * y_accel
@@ -56,17 +57,18 @@ class Sun:
         self.temp = temp
         self.x = 0
         self.y = 0
-        
+
         self.st = turtle.Turtle()
         self.st.up()
         self.st.goto(self.x, self.y)
         self.st.down()
-        self.st.color('yellow')
+        self.st.color("yellow")
         self.st.begin_fill()
-        self.st.shape('circle')
-        self.st.shapesize(radius,radius,1)
-        #self.st.circle(radius)
+        self.st.shape("circle")
+        self.st.shapesize(radius, radius, 1)
+        # self.st.circle(radius)
         self.st.end_fill()
+
 
 class Planet:
     def __init__(self, name, radius, mass, distance, x_vel, y_vel, color):
@@ -87,39 +89,40 @@ class Planet:
         self.t.down()
         self.t.color(color)
         self.t.begin_fill()
-        self.t.shape('circle')
-        self.t.shapesize(radius,radius,1)
-        #self.t.circle(radius)
+        self.t.shape("circle")
+        self.t.shapesize(radius, radius, 1)
+        # self.t.circle(radius)
         self.t.end_fill()
-
 
     def move_to(self, new_x, new_y):
         self.x = new_x
         self.y = new_y
         self.t.up()
-        self.t.goto(self.x,self.y)
+        self.t.goto(self.x, self.y)
         self.t.down()
 
-def create_animate():
-    ss = SolarSystem(2,2)
 
-    sun = Sun("SUN", 1, 10, 5800)
+def create_animate():
+    ss = SolarSystem(2, 2)
+
+    sun = Sun("SUN", 1, 25, 5800)
     ss.add_sun(sun)
 
-    planet = Planet("MERCURY", 1, 1000, 0.7, -0.5, 0.5, 'blue')
+    planet = Planet("MERCURY", 2, 1000, 0.7, -0.5, 0.5, "blue")
     ss.add_planet(planet)
 
-    planet_2 = Planet("EARTH", 2, 5000, 0.8, -0.5, 0.6, 'green')
+    planet_2 = Planet("EARTH", 4, 5000, 0.8, -0.5, 0.6, "green")
     ss.add_planet(planet_2)
 
-    planet_3 = Planet("JUPITER", 4, 8000, 1, -0.5, 0.8, 'brown')
+    planet_3 = Planet("JUPITER", 8, 8000, 1, -0.5, 0.8, "brown")
     ss.add_planet(planet_3)
 
     while True:
         ss.move_planets()
         ss.window.update()
 
-#i couldn't get ontimer to work for the life of me :(
+
+# i couldn't get ontimer to work for the life of me :(
 
 
 #    ss.move_planets()
@@ -128,6 +131,6 @@ def create_animate():
 #    ss.window.exitonclick()
 
 
-    #ss.window.mainloop()
+# ss.window.mainloop()
 
 create_animate()
